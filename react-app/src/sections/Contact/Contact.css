@@ -28,9 +28,15 @@
   margin: 0.5rem 0;
 }
 
+/* 
+padding = internal mod 
+margin = external mod
+
+*/
 input {
   width: 25rem;
   height: 2rem;
   border: 2px solid #fff;
   border-radius: 0.2rem;
+  padding: 0.3rem 0.5rem;
 }

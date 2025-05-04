@@ -34,8 +34,8 @@ function Contact() {
                               <p>{personalDetails.phone}</p>
                         </div>
                         <form onSubmit={handleSubmit} className="formData">
-                              <input type="text" name="name" onChange={handleChange} />
-                              <input type="email" name="email" onChange={handleChange} />
+                              <input type="text" name="name" onChange={handleChange} placeholder="John Doe"/>
+                              <input type="email" name="email" onChange={handleChange} placeholder="JohnDoe1@gmail.com"/>
                               {/* <textarea name="message" onChange={handleChange}></textarea> */}
                               <button type="submit">Send</button>
                         </form>
