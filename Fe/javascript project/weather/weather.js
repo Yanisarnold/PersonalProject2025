@@ -1,4 +1,7 @@
+// import data from "./data.json"
+
 const apiKey = "69ae3709af8af7197172e4285857a796";
+// const ßßapiKey = data.cofig.apiKey
 const elements = {
   weather: document.getElementById("weather"),
   cityDisplay: document.getElementById("cityName"),
@@ -16,7 +19,7 @@ const elements = {
   low: document.getElementById("low"),
   errorMsg: document.getElementById("error-message")
 };
-const userCity = elements.cityInput.value.trim();
+const userCity = elements.cityInput.value;
 let currentTemp = null
 let isCelsius = true;
 
@@ -74,12 +77,19 @@ const getWeather = (cityName) => {
       elements.weather.innerHTML = Math.round(data.main.temp - 273.15) + "°";
       elements.cityDisplay.innerHTML = `${data.name}, ${data.sys.country} `;
       elements.humidity.innerHTML =
-      `<img src="/Fe/javascript project/weather/svg/temperature-list-svgrepo-com.svg" width="10" height="10"> ${convert(data.main.feels_like)}`
-      elements.pressure.innerHTML =`<img src="/Fe/javascript project/weather/svg/humidity-svgrepo-com.svg" width="10" height="10"> ${data.main.humidity}%`
+        `<img src="/Fe/javascript project/weather/svg/temperature-list-svgrepo-com.svg" width="10" height="10"> ${convert(data.main.feels_like)}`
+      
+      elements.pressure.innerHTML =`<img src="/Fe/javascript project/weather/svg/humidity-svgrepo-com.svg" alt="Wind" width="10" height="10"> ${data.main.humidity}%`
       elements.description.innerHTML = data.weather[0].main;
-      elements.windSpeed.innerHTML =  `<img src="/Fe/javascript project/weather/svg/wind-svgrepo-com.svg" alt="Wind" width="10" height="10"> ${data.wind.speed} km/h`
-       elements.rise.innerHTML = `<img src="/Fe/javascript project/weather/svg/sunrise-svgrepo-com.svg" width="15" height="15"> Rise: ${convertUnixTime(data.sys.sunrise)} | `;
-       elements.set.innerHTML = `<img src="/Fe/javascript project/weather/svg/sunset-svgrepo-com.svg" width="15" height="15"> Set: ${convertUnixTime(data.sys.sunset)}`;
+
+      elements.windSpeed.innerHTML = `<img src="/Fe/javascript project/weather/svg/wind-svgrepo-com.svg" alt="Wind" width="10" height="10"> ${data.wind.speed} km/h`
+      
+       elements.rise.innerHTML = `<img src="/Fe/javascript project/weather/svg/
+       sunrise-svgrepo-com.svg" width="15" height="15"> Rise: ${convertUnixTime(data.sys.sunrise)} | `;
+      
+      elements.set.innerHTML = `<img src="/Fe/javascript project/weather/svg/sunset-svgrepo-com.svg" width="15" height="15"> Set: ${convertUnixTime(data.sys.sunset)}`;
+      
+
       elements.high.innerHTML =  ` | <img src="/Fe/javascript project/weather/svg/sunrise-svgrepo-com.svg" width="15" height="15"> High ${convert(data.main.temp_min)}`
       elements.low.innerHTML = `| <img src="/Fe/javascript project/weather/svg/sunset-svgrepo-com.svg" width="15" height="15"> Low ${convert(data.main.temp_min)}`
       elements.cityInput.value = "";
@@ -115,7 +125,7 @@ const convertTemp = () => {
 }
 
 // Add event listener for the button
-elements.button.addEventListener("click", () => getWeather(userCity));
+elements.button.addEventListener("click", () => getWeather(elements.cityInput.value.trim()));
 
 
 const displayDate = () => {
