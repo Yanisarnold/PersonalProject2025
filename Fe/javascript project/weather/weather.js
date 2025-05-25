@@ -77,21 +77,20 @@ const getWeather = (cityName) => {
       elements.weather.innerHTML = Math.round(data.main.temp - 273.15) + "°";
       elements.cityDisplay.innerHTML = `${data.name}, ${data.sys.country} `;
       elements.humidity.innerHTML =
-        `<img src="/Fe/javascript project/weather/svg/temperature-list-svgrepo-com.svg" width="10" height="10"> ${convert(data.main.feels_like)}`
+        `<img src="./svg/temperature-list-svgrepo-com.svg" width="10" height="10"> ${convert(data.main.feels_like)}`
       
-      elements.pressure.innerHTML =`<img src="/Fe/javascript project/weather/svg/humidity-svgrepo-com.svg" alt="Wind" width="10" height="10"> ${data.main.humidity}%`
+      elements.pressure.innerHTML =`<img src="./svg/humidity-svgrepo-com.svg" alt="Wind" width="10" height="10"> ${data.main.humidity}%`
       elements.description.innerHTML = data.weather[0].main;
 
-      elements.windSpeed.innerHTML = `<img src="/Fe/javascript project/weather/svg/wind-svgrepo-com.svg" alt="Wind" width="10" height="10"> ${data.wind.speed} km/h`
+      elements.windSpeed.innerHTML = `<img src="./svg/wind-svgrepo-com.svg" alt="Wind" width="10" height="10"> ${data.wind.speed} km/h`
       
-       elements.rise.innerHTML = `<img src="/Fe/javascript project/weather/svg/
-       sunrise-svgrepo-com.svg" width="15" height="15"> Rise: ${convertUnixTime(data.sys.sunrise)} | `;
+       elements.rise.innerHTML = `<img src="./svg/sunrise-svgrepo-com.svg" width="15" height="15"> Rise: ${convertUnixTime(data.sys.sunrise)} | `;
       
-      elements.set.innerHTML = `<img src="/Fe/javascript project/weather/svg/sunset-svgrepo-com.svg" width="15" height="15"> Set: ${convertUnixTime(data.sys.sunset)}`;
+      elements.set.innerHTML = `<img src="./svg/sunset-svgrepo-com.svg" width="15" height="15"> Set: ${convertUnixTime(data.sys.sunset)}`;
       
 
-      elements.high.innerHTML =  ` | <img src="/Fe/javascript project/weather/svg/sunrise-svgrepo-com.svg" width="15" height="15"> High ${convert(data.main.temp_min)}`
-      elements.low.innerHTML = `| <img src="/Fe/javascript project/weather/svg/sunset-svgrepo-com.svg" width="15" height="15"> Low ${convert(data.main.temp_min)}`
+      elements.high.innerHTML =  ` | <img src="./svg/sunrise-svgrepo-com.svg" width="15" height="15"> High ${convert(data.main.temp_min)}`
+      elements.low.innerHTML = `| <img src="./svg/sunset-svgrepo-com.svg" width="15" height="15"> Low ${convert(data.main.temp_min)}`
       elements.cityInput.value = "";
       const iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
         elements.icon.src = iconUrl;
@@ -104,6 +103,7 @@ const getWeather = (cityName) => {
       alert("Error fetching weather data: " + error.message);
     });
 };
+
 
 // Add event listener for the buttons
 const updateTemperature = (temp ,unit) => {
@@ -148,8 +148,9 @@ const displayDate = () => {
 }
 
 window.onload = () => {
-  getWeather("Berlin");
   setInterval(displayDate,1000)
+  getWeather("Berlin");
+
 }
 
 
