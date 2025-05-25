@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="weather.css">
+    <title>Weather App</title>
+  </head>
+  <main class="weather-app">
+
+    <body>
+      <header>
+        <h1>Weather App</h1>
+      </header>
+
+
+      <section class="quick-access">
+        <nav aria-label="Quick access cities">
+          <ul>
+            <li id="Abidjan">Abidjan</li>
+            <li id="Sydney">Sydney</li>
+            <li id="Tokyo">Tokyo</li>
+            <li id="Toronto">Toronto</li>
+            <li id="Paris">Paris</li>
+          </ul>
+        </nav>
+      </section>
+
+      <section class="search-section">
+        <div id="inputContainer">
+
+          <input type="text" id="city" placeholder="search for city...">
+          <button id="getWeather">Get Weather</button>
+          <div id="error-message" class="error-message"></div>
+        </div>
+
+      </section>
+      <section class="current-weather">
+        <span id="showDateAndTime"></span>
+        <div id="weatherContainer">
+          <div id="locationDisplay">
+            <h2 id="cityName"></h2>
+          </div>
+          <p id="description">
+          </p>
+          <div id="displayWeather">
+            <span><img id="icon" src="" alt=""></span>
+            <span>
+              <h2 id="weather"></h2>
+            </span>
+            <span>
+              <p id="humidity">
+              </p>
+              <p id="pressure">
+                <img src="./svg/humidity-svgrepo-com.svg" alt="Wind" width="24" height="24">
+              </p>
+              <p id="wind">
+                <img src="./svg/wind-svgrepo-com.svg" width="10" height="10">
+              </p>
+              </p>
+            </span>
+          </div>
+          <div id="upcoming" role="region" aria-label="Additional weather information">
+            <p id="rise">1</p>
+            <p id="set">2</p>
+            <p id="high">3</p>
+            <p id="low">4</p>
+          </div>
+      </section>
+
+      </div>
+  </main>
+  <script type="module" src="./weather.js"></script>
+  </body>
+
+</html>
