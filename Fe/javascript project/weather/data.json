@@ -1,0 +1,50 @@
+[
+  {
+  "config": {
+    "defaultCity": "London",
+    "apiKey": "69ae3709af8af7197172e4285857a796"
+  },
+  "cities": {
+    "Abidjan": {
+      "name": "Abidjan",
+      "country": "Côte d'Ivoire",
+      "coordinates": {
+        "lat": 5.3333,
+        "lon": -4.0167
+      }
+    },
+    "Sydney": {
+      "name": "Sydney",
+      "country": "Australia",
+      "coordinates": {
+        "lat": -33.8688,
+        "lon": 151.2093
+      }
+    },
+    "Tokyo": {
+      "name": "Tokyo",
+      "country": "Japan",
+      "coordinates": {
+        "lat": 35.6895,
+        "lon": 139.6917
+      }
+    },
+    "Toronto": {
+      "name": "Toronto",
+      "country": "Canada",
+      "coordinates": {
+        "lat": 43.7001,
+        "lon": -79.4163
+      }
+    },
+    "Paris": {
+      "name": "Paris",
+      "country": "France",
+      "coordinates": {
+        "lat": 48.8566,
+        "lon": 2.3522
+      }
+    }
+  }
+}
+]
