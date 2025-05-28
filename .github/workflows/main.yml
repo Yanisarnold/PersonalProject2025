@@ -1,7 +1,7 @@
-name: Playwright Tests
+name: Playwright Tests Run
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 jobs:
   test:
     timeout-minutes: 60
