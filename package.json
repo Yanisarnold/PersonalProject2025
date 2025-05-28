@@ -3,11 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "prepare": "husky",
+    "lint": "eslint . --ext .ts,.tsx --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "type-check": "tsc --noEmit",
+    "test": "playwright test"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.52.0",
-    "@types/node": "^22.15.23"
+    "@types/node": "^22.15.23",
+    "husky": "^9.1.7"
   }
 }
