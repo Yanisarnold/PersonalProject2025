@@ -1,0 +1,35 @@
+name: Daily Staging Test 8 AM Run
+run-name: Daily Staging Test Run by ${{ github.actor }} 🚀
+on:
+  schedule:
+    # Run at 8:00 AM UTzC every day
+    - cron: "0 8 * * *"
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+       container: [1, 2,3] # Create 3 parallel runners
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Cypress Tests in Parallel
+        run: |
+          CYPRESS_INCLUDE_TAGS=REGRESSION npx cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} \
+          --parallel --ci-build-id $GITHUB_RUN_ID \
+           --group="Staging Morning Health Checks 🚀"
+        env:
+          CYPRESS_userPoolId: ${{ secrets.CYPRESS_USER_POOL_ID }}
+          CYPRESS_clientId: ${{ secrets.CYPRESS_CLIENT_ID }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
