@@ -1,7 +1,6 @@
 // import data from "./data.json"
 
 const apiKey = "69ae3709af8af7197172e4285857a796";
-// const ßßapiKey = data.cofig.apiKey
 const elements = {
   weather: document.getElementById("weather"),
   cityDisplay: document.getElementById("cityName"),
