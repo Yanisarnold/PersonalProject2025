@@ -8,13 +8,22 @@
     "lint": "eslint . --ext .ts,.tsx --fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "type-check": "tsc --noEmit",
-    "test": "playwright test"
+    "testpaywright": "playwright test",
+    "playwright:ui": "playwright test --ui",
+    "test": "cucumber-js Kaluza-Task/features/test.feature --require-module ts-node/register --require Kaluza-Task/features/step_definitions/**/*.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@cucumber/cucumber": "^11.3.0",
     "@playwright/test": "^1.52.0",
-    "@types/node": "^22.15.23",
-    "husky": "^9.1.7"
+    "@types/node": "^22.15.29",
+    "@types/node-fetch": "^2.6.12",
+    "husky": "^9.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
   }
 }

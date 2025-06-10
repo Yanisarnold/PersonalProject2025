@@ -2,7 +2,7 @@ import { Page } from "@playwright/test";
 
 export class LoginPage {
   private page: Page
-  
+
   elements = {
     companyName: () => this.page.getByRole('textbox', { name: 'Company name' }),
   }
