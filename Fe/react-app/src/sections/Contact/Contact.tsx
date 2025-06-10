@@ -1,15 +1,12 @@
 import personalData from "../../data/personalDetails.json";
 import { useState } from "react";
 import "./Contact.css"
-import Banner from "../../components/commons/Banner/Banner";
+// import Banner from "../../components/commons/Banner/Banner";
 function Contact() {
       // pulling user data from json file
       const personalDetails = personalData;
-      const [errors, setErrors] = useState({
-              name: "",
-            email: "",
-            message: "",
-      })
+      const [errors, setErrors] = useState({ name: "", email: "", message: "", });
+
      // React state to manage form inputs
       const [formData, setFormData] = useState({
             name: "",
@@ -18,13 +15,9 @@ function Contact() {
       });
       // handling changes 
       const handleChange = (
-            
             e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
            // Update the corresponding field in formData based on input's name
-            setFormData({
-                  ...formData,
-                  [e.target.name]: e.target.value,
-            });
+            setFormData({ ...formData, [e.target.name]: e.target.value, });
       };
       // handling submit 
       const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -32,11 +25,7 @@ function Contact() {
             e.preventDefault();
             // console.log object
             console.log(formData);
-            setFormData({
-                        name: "",
-            email: "",
-            message: "",
-            })
+            setFormData({name: "", email: "",message: "",})
       };
       return (
             <div>
