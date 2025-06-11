@@ -1,7 +1,12 @@
 import personalData from "../../data/personalDetails.json";
 import { useState } from "react";
 import "./Contact.css"
+import errors from "../../utility/errors";
+// import { useState } from "react";
 // import Banner from "../../components/commons/Banner/Banner";
+
+
+const error = new errors();
 function Contact() {
       // pulling user data from json file
       const personalDetails = personalData;
@@ -19,43 +24,25 @@ function Contact() {
            // Update the corresponding field in formData based on input's name
             setFormData({ ...formData, [e.target.name]: e.target.value, });
       };
+
       // handling submit 
       const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
                  // Prevent page reload
             e.preventDefault();
             let newErrors = { name: "", email: "", message: "", };
             let isValid = true;
-            
-            if (!formData.name) {
-                  newErrors.name = "Name is required.";
-                  isValid = false;
-            }
-
-            if (!formData.email) {
-                  newErrors.email = "Email is required.";
-                  isValid = false;
-                  // 
-            } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-                  newErrors.email = "Email is invalid.";
-                  isValid = false;
-            }
-
-            if (!formData.message) {
-                  newErrors.message = "Message is required.";
-                  isValid = false;
-            }
-
-            if (formData.message && formData.message.length < 10) {
-                  newErrors.message = "Message must be at least 10 characters.";
-                  isValid = false;
-            }
-
+            // Validate name, email & message
+            newErrors.name = error.setName(formData.name);
+            newErrors.email = error.setEmail(formData.email);
+            newErrors.message = error.setMessage(formData.message);
             setErrors(newErrors);
             if (isValid) {
             console.log(formData);
             setFormData({ name: "", email: "", message: "", })     
             }
       };
+
+      // Render the contact form
       return (
             <div>
                   <div className="container">
@@ -70,18 +57,18 @@ function Contact() {
                               <p>{personalDetails.phone}</p>
                         </div>
                         <form onSubmit={handleSubmit} className="formData">
-                              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                              <div className="formItems" >
                               <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="John Doe"  />
-                                    {errors.name && <span className="error" style={{ color: 'red' }}>{errors.name}</span>}
+                                    {errors.name && <span className="error" >{errors.name}</span>}
                               </div>
                              
-                                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                <div className="formItems" >
                                     <input type="email" name="email" onChange={handleChange} placeholder="JohnDoe1@gmail.com" value={formData.email} />
-                                    {errors.email && <span className="error" style={{ color: 'red' }}>{errors.email}</span>}
+                                    {errors.email && <span className="error" >{errors.email}</span>}
                               </div>
-                              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                              <div className="formItems" >
                               <textarea name="message" onChange={handleChange} value={formData.message} ></textarea>
-                                {errors.message && <span className="error" style={{ color: 'red' }}>{errors.message}</span>}
+                                {errors.message && <span className="error" >{errors.message}</span>}
                               </div>
                               <button type="submit">Send</button>
                         </form>

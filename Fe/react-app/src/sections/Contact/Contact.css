@@ -40,3 +40,12 @@ input {
   border-radius: 0.2rem;
   padding: 0.3rem 0.5rem;
 }
+.error {
+  color: red;
+}
+.formItems{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
