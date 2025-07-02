@@ -1,11 +1,11 @@
 .gotchopfooter {
-  background-color: #fff;
+  background-color: #000;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: #000;
-  margin: 0; 
+  margin: 0;
   z-index: 1000;
   height: 240px;
   padding: 20px;
