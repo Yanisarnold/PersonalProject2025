@@ -4,7 +4,7 @@ import Hero from './pages/Hero.tsx';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Projects from './pages/Projects.tsx';
 import Skills from './pages/Skills.tsx';
-import About from './pages/About.tsx';
+import About from './pages/productListing.tsx';
 import Contact from './pages/Contact.tsx';
 import Footer from './components/Footer.tsx';
 function App() {
