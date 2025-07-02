@@ -23,7 +23,6 @@
   flex-direction: column;
 }
 
-
 .formData input {
   margin: 0.5rem 0;
 }
@@ -43,7 +42,7 @@ input {
 .error {
   color: red;
 }
-.formItems{
+.formItems {
   display: flex;
   flex-direction: column;
   justify-content: center;
