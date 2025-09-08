@@ -1,11 +1,14 @@
 
-const elements = {
-  amount: document.getElementById("amount"),
-  toCurrency:document.getElementById("toCurrency")
+const elements  = {
+  amount: document.getElementById("amount") as HTMLInputElement,
+  toCurrency:document.getElementById("toCurrency") as HTMLInputElement
 }
+
 const getAmount = () => {
-  return elements.amount.value || "1";
+  return elements.amount.value || "1"; ;
 }
+
+
 const getConverter = () => {
   const amount = getAmount();
   const toCurrency = elements.toCurrency.value || "EUR";
@@ -27,5 +30,5 @@ const getConverter = () => {
  })
 }
 
-elements.toCurrency.addEventListener("focusout", () => getConverter(fromCurrency, toCurrency, amount))
+elements.toCurrency?.addEventListener("focusout", () => getConverter());
 

@@ -21,7 +21,7 @@ function App() {
           <Route path="/productListing" element={<ProductListingPage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<h1>Page Not Found</h1>} />
-          <Route path='/product/:id' element={<ProductDetail />}></Route>
+          <Route path="/product/:id" element={<ProductDetail />}></Route>
         </Routes>
       </BrowserRouter>
       <Footer />

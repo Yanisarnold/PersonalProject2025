@@ -1,97 +1,100 @@
 import '../styles/components/productcard.css';
-import ProductCard from '../components/productCard';
+import ProductCard from '../components/ProductCard';
 import { Link } from 'react-router-dom';
+import productData from '../data/productlisting.json';
+import { useState, useEffect } from 'react';
+import { FaSearch } from 'react-icons/fa';
 const ProductList = () => {
-  const prodDetailPageClickHandler = (id:number) => {
+  type Product = {
+    id: number;
+    name: string;
+    description: string;
+    image: string;
+    price: number;
+    tag?: string;
+  };
+
+  const [activeTag, setActiveTag] = useState<string>('');
+  const [searchValue, setSearhhValue] = useState<string>('');
+  const [productList, setProductList] = useState<Product[]>(productData);
+  const [filterProduct, setFilterProduct] = useState<Product[]>(productData);
+
+  const filterProductByTag = (tag: string) => {
+    if (tag ==  activeTag) {
+      setFilterProduct(productData);
+      setActiveTag('');
+      return;
+    }
+    const filteredProducts = productList.filter(
+      (product) => product.tag?.toUpperCase() === tag.toUpperCase()
+    );
+    setFilterProduct(filteredProducts);
+    setActiveTag(tag);
+    return;
+  };
+
+  const searchProduct = (searchValue: string) => {
+    if (searchValue === '') {
+      setFilterProduct(productList);
+      return;
+    }
+    const filteredProducts = productList.filter((product) =>
+      product.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setFilterProduct(filteredProducts);
+  };
+
+  const prodDetailPageClickHandler = (id: number) => {
     // Placeholder for product detail page click handler
     console.log('Product detail page clicked' + id);
-  }
-  
-  const products = [
-    {
-      id: 1,
-      name: 'Burger',
-      description:
-        'Dockounou is a traditional dish made from fermented cassava, often served with spicy sauce.',
-      image: 'https://via.placeholder.com/150',
-      price: 9.99,
-    },
-    {
-      id: 2,
-      name: 'Pizza',
-      description:
-        'Dockounou is a traditional dish made from fermented cassava, often served with spicy sauce.',
-      image: 'https://via.placeholder.com/150',
-      price: 12.5,
-    },
-    {
-      id: 3,
-      name: 'Pasta',
-      description:
-        'Dockounou is a traditional dish made from fermented cassava, often served with spicy sauce.',
-      image: 'https://via.placeholder.com/150',
-      price: 8.0,
-    },{
-      id: 4,
-      name: 'Pasta',
-      description:
-        'Dockounou is a traditional dish made from fermented cassava, often served with spicy sauce.',
-      image: 'https://via.placeholder.com/150',
-      price: 8.0,
-    },
-    {
-      id: 5,
-      name: 'Burger',
-      description:
-        'Dockounou is a traditional dish made from fermented cassava, often served with spicy sauce.',
-      image: 'https://via.placeholder.com/150',
-      price: 9.99,
-    },
-    {
-      id: 6,
-      name: 'Pizza',
-      description:
-        'Dockounou is a traditional dish made from fermented cassava, often served with spicy sauce.',
-      image: 'https://via.placeholder.com/150',
-      price: 12.5,
-    },
-    {
-      id: 7,
-      name: 'Pasta',
-      description:
-        'Dockounou is a traditional dish made from fermented cassava, often served with spicy sauce.',
-      image: 'https://via.placeholder.com/150',
-      price: 8.0,
-    },{
-      id: 8,
-      name: 'Pasta',
-      description:
-        'Dockounou is a traditional dish made from fermented cassava, often served with spicy sauce.',
-      image: 'https://via.placeholder.com/150',
-      price: 8.0,
-    }
-  ];
+  };
+
+  useEffect(() => {
+    searchProduct(searchValue);
+  }, [searchValue]);
+
   return (
     <div>
-      <h1 className="listingTitle">Product Listing</h1>
-
       <div className="filtering-container">
         <div className="search-container">
-          <input type="search" name="searchForFood" id="goChopSearch" />
+          <input
+            type="search"
+            name="searchForFood"
+            id="goChopSearch"
+            value={searchValue}
+            onChange={(e) => setSearhhValue(e.target.value)}
+          />
+          <FaSearch className="search-icon" />
         </div>
         <div className="filter-btn">
-        <button className="new-filter">New</button>
-          <button className="price-filter">Prix</button>
-          <button className="food-filter">Plats</button>
-          <button className="commune-filter">Commune</button>
+          <button className="new-filter" onClick={() => filterProductByTag('new')}>
+            New
+          </button>
+          <button className="price-filter" onClick={() => filterProductByTag('Prix')}>
+            Prix
+          </button>
+          <button className="food-filter" onClick={() => filterProductByTag('Plats')}>
+            Plats
+          </button>
+          <button className="commune-filter" onClick={() => filterProductByTag('Commune')}>
+            Commune
+          </button>
         </div>
       </div>
-      <div className="productListContainer">
-        {products.map((product) => (
-          <Link key={product.id} to={`/product/${product.id}`}>
-            <ProductCard product={product} key={product.id} onClick={() => prodDetailPageClickHandler(product.id)} />
-            </Link>
-        ))}
+      <div className={activeTag == "new" ? " productListContainer" : "productListContainer"}>
+      {filterProduct.length > 0 ? (
+    filterProduct.map((product) => (
+      <Link key={product.id} to={`/product/${product.id}`}>
+        <ProductCard
+          product={product}
+          key={product.price}
+          onClick={() => prodDetailPageClickHandler(product.id)}
+        />
+      </Link>
+    ))
+  ) : (
+    <h1 className="no-products-message">No products found.</h1>
+  )}
       </div>
     </div>
   );

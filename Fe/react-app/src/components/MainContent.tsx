@@ -1,32 +1,20 @@
-import ProductCard from './productCard';
-
+import ProductCard from '../components/ProductCard';
+import '../styles/components/productcard.css';
+import productData from '../data/productlisting.json';
+import '../styles/components/maincontent.css';
+import Banner from './Banner';
 const MainContent = () => {
   return (
-    <>
+    <div className="main-page-container">
       <div className="gotchopfoodList">
-        <div className="gotchopfoodListItem">
-          <h3>Food Item 1</h3>
-          <p>Description of Food Item 1</p>
-        </div>
-        <div className="gotchopfoodListItem">
-          <h3>Food Item 2</h3>
-          <p>Description of Food Item 2</p>
-        </div>
-        <div className="gotchopfoodListItem">
-          <h3>Food Item 3</h3>
-          <p>Description of Food Item 3</p>
-        </div>
-
-        <ProductCard
-          product={{
-            name: 'Sample Product',
-            description: 'This is a sample product description.',
-            image: 'https://via.placeholder.com/150',
-            price: 19.99,
-          }}
-        />
+        <Banner pageTitle="GoChop Food List" />
       </div>
-    </>
+      <div className="listOfProduct">
+        {productData.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
+    </div>
   );
 };
 

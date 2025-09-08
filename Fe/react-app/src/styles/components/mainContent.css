@@ -1,0 +1,50 @@
+.main-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  justify-content: center;
+  width: 100%;
+}
+
+.gotchopfoodList > div {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  color: aliceblue;
+  width: 100%;
+}
+
+.listOfProduct {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 25px;
+}
+
+.goChopCarouselItem {
+  width: 500px;
+  border: 1px solid;
+  color: black;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gochopCarousel-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.gochopCarousel-controls > button {
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  gap: 5px;
+  width: 100px;
+  margin-right: 10px;
+  border-radius: 5px;
+  font-size: 12px;
+}

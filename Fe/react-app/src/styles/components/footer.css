@@ -8,5 +8,21 @@
   margin: 0;
   z-index: 1000;
   height: 240px;
-  padding: 20px;
+  padding: 0 50px;
+  color:#fff
+}
+
+
+
+.gochopfooterLink {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  list-style: none;
+}
+
+.gochopfooterLink > ul > li {
+  color: #fff;
+  text-decoration: none;
 }

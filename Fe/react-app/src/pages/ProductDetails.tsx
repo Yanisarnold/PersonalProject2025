@@ -1,11 +1,5 @@
-
-
 const productDetailsPage = () => {
+  return <></>;
+};
 
-    return (
-        <></>
-    )
-}
-
-
-export default productDetailsPage; 
+export default productDetailsPage;

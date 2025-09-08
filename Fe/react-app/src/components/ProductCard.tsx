@@ -5,23 +5,31 @@ type Product = {
   description: string;
   image: string;
   price: number;
+  tag?: string;
 };
 
 type ProductCardProps = {
   product: Product;
-  onClick?: () => void; 
+  onClick?: () => void;
 };
 
-
-const ProductCard = ({ product, onClick}: ProductCardProps) => {
+const ProductCard = ({ product, onClick }: ProductCardProps) => {
   return (
-    <div className="product-card" onClick={onClick} >
+    <div className="product-card" onClick={onClick}>
       <div className="img-container">
-        <img src={product.image} alt={product.name} />
+        <img className="product-img" src={product.image} alt={product.name} />
       </div>
-      <h3>{product.name}</h3>
-      <p>{product.description}</p>
-      <span>{product.price.toFixed(2)}CFA</span>
+      <div className="card-content">
+        {product.tag && (
+          <div className="product-tag">
+            <button className="product-tag-button">{product.tag}</button>
+          </div>
+        )}
+
+        <h3>{product.name}</h3>
+        {/* <p>{product.description}</p> */}
+        <span>{product.price.toFixed(2)}CFA</span>
+      </div>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import '../styles/components/footer.css';
 const Footer = (link: string) => {
   return (
     <footer className="bg-gray-800 text-white py-4 mt-8 gotchopfooter">
-      <div className={'gochop' + link}>
+      <div className='gochop_footer_container'>
         <ul className="gochopfooterLink">
           <li>
             <a href="/about" className="hover:underline">
