@@ -1,11 +1,14 @@
 // different types
 const firstName = "williams"; 
 const lastName = "Tim";
-const age = 24;
+// tuple
+const age : [number, string] = [24,"24"];
 const isEmployed = false;
 // array + object definition 
 const arrayOfCars = ["Mercedes", "BMW", "Ferrari", "Lamborghini"];
 const ObjectOfFood = {food_One:"Pie", food_Two: "Burger"}
+// union Type 
+let empId: string | number;
 
 // type definition 
 type food = {
@@ -21,10 +24,17 @@ interface countryOfOrigin  {
 
 }
 
+// enums
+enum placeOfBirth {
+ City = "London",
+ Borough = "Croydon"
+}
+
+
 const birthCertificate = (firstName : string ,lastName: string) => {
     const fullName = "firstName: " + firstName + " lastName: " +lastName; 
     return  fullName;
-;}
+}
 
 
 
