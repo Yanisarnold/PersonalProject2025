@@ -21,6 +21,13 @@ interface countryOfOrigin  {
 
 }
 
+const birthCertificate = (firstName : string ,lastName: string) => {
+    const fullName = "firstName: " + firstName + " lastName: " +lastName; 
+    return  fullName;
+;}
 
 
+
+
+console.log(birthCertificate(firstName,lastName))
 // todo app 
