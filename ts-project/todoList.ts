@@ -1,8 +1,19 @@
 // add, remove, list, modify,savetoJson (task)
-
+import fs from 'fs';
 const storeTask: string[] = [];
-const addTask = (task : string) => {
- storeTask.push(task.toLowerCase());
+
+
+
+const addTask = (task : string,  taskUrgency: urgencyOftask ) => {
+    if(typeof(task) !== "string"){
+        throw new Error("Invalid type added " + typeof(task) )
+    }
+ storeTask.push(task.toLowerCase(),taskUrgency);
+ console.log(`task added:  ${storeTask.length}`)
+
+ for (let i in storeTask) {
+    console.log(`current task added: ${storeTask[i]}`)
+ }
 }
 
 const removeTask = (task: string) => {
@@ -22,14 +33,42 @@ function printAllTask() {
 }
 
 
+function modifyTask(currTask:string, NewTask:string ) {
+    // checking currTask index 
+ const index = storeTask.indexOf(currTask.toLowerCase())
+//  checking if it exist then changing to new value + returning true 
+ if (index !== -1){
+    storeTask[index] = NewTask.toLowerCase();
+    return true;
+ }
+return false
+}
+
+
+
+function savetoJson() {
+
+const outputFilePath: string = 'event_data.json';
+
+fs.writeFile(outputFilePath, JSON.stringify(storeTask, null, 4), 'utf8', () => {
+  console.log(`Data written to ${outputFilePath} as JSON.`);
+});
+}
+
+enum urgencyOftask {
+    Low = "Low",
+    Medium = "Medium",
+    Urgent = "Urgent"
+}
+
 // testing
-addTask("food")
-addTask("Viande")
-addTask("Ronaldo")
-addTask("Messi")
-addTask("Mbappé")
+addTask("food", urgencyOftask.Medium)
+// addTask("Viande")
+// addTask("Ronaldo")
+// addTask("Messi")
+// addTask("Mbappé")
 printAllTask()
-removeTask("MESSI");
+modifyTask("Ronaldo", "r9")
 printAllTask()
 savetoJson()
 
