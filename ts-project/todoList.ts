@@ -31,3 +31,11 @@ addTask("Mbappé")
 printAllTask()
 removeTask("MESSI");
 printAllTask()
+savetoJson()
+
+
+
+enum categoryOftask {
+
+}
+
