@@ -19,14 +19,16 @@ for (const task of storeTask) {
 }
 }
 
-// const removeTask = (task: string) => {
-//     const index = storeTask.indexOf();
-//     if (index > -1) {
-//         storeTask.splice(index,1);
-//         return true; // Successfully removed
-//     }
-//     return false; // Task not found
-// }
+const removeTask = (task: string) => {
+      const index = storeTask.findIndex(
+    ([taskName]) => taskName === task
+  );
+    if (index !== -1) {
+        storeTask.splice(index,1);
+        return true; // Successfully removed
+    }
+    return false; // Task not found
+}
 function printAllTask() {
   console.log("Current tasks:");
 
@@ -70,8 +72,10 @@ export type UrgencyOfTask =
   typeof urgencyOfTask[keyof typeof urgencyOfTask];
 // testing
 addTask("food", urgencyOfTask.Medium)
+addTask("ronaldo", urgencyOfTask.Medium)
 printAllTask()
 // modifyTask("Ronaldo", "r9")
+removeTask("food")
 printAllTask()
 savetoJson()
 
