@@ -4,7 +4,7 @@ import * as fs from "fs";
 
 const uuid = Math.floor(Math.random() * 1000);
 const isCompleted = false;
-const taskCreatedAt = new Date().toISOString().split("T")[0];
+const taskCreatedAt = new Date().toISOString();
  console.log(taskCreatedAt);
 const expiryDate = "";
 console.log(uuid);
@@ -15,6 +15,7 @@ type Task = {
  urgency: UrgencyOfTask,
  isCompleted: boolean,
  taskCreatedAt: string
+
 }
 
 export type UrgencyOfTask =
