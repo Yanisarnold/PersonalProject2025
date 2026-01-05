@@ -5,7 +5,6 @@ import * as fs from "fs";
 const uuid = Math.floor(Math.random() * 1000);
 const isCompleted = false;
 const taskCreatedAt = new Date().toISOString();
- console.log(taskCreatedAt);
 const expiryDate = "";
 console.log(uuid);
 // type of task the array can store
@@ -64,13 +63,16 @@ function printAllTask() {
 }
 
 
-function modifyTask(currTask:string, NewTask:string ) {
+function modifyTask(currTask:string, NewTask:string, isCompleted?:boolean) :  boolean {
     // checking currTask index 
  const index = storeTask.findIndex(
     (taskName) => taskName.name === currTask)
-//  checking if it exist then changing to new value + returning true 
- if (index !== -1){
-    storeTask[index][0] = NewTask.toLowerCase();
+//  checking if it exist then changing to new value + returning true
+if(index === -1) return false;
+storeTask[index].name = NewTask.toLowerCase();
+
+ if (isCompleted !== undefined){
+    storeTask[index].isCompleted = isCompleted;
     return true;
  }
 return false
@@ -91,7 +93,7 @@ fs.writeFile(outputFilePath, JSON.stringify(storeTask, null, 4), 'utf8', () => {
 addTask("food", urgencyOfTask.Medium)
 addTask("ronaldo", urgencyOfTask.Urgent)
 printAllTask()
-modifyTask("ronaldo", "r9")
+modifyTask("ronaldo", "r9", true)
 removeTask(uuid)
 printAllTask()
 savetoJson()
