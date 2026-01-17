@@ -11,9 +11,12 @@ const addTask = (task: string, taskUrgency: UrgencyOfTask) => {
   // check for types || empty string
   if (typeof (task) !== "string" || task === " ") {
       throw new Error("Invalid type added " + typeof (task) + task)
-    }
- const taskCreatedAt = new Date().toISOString();
- const currentId = nextId++;
+  }
+  // adds dates created at in string
+  const taskCreatedAt = new Date().toISOString();
+  // increments id each time a tas is added 
+  const currentId = nextId++;
+  // pushes task to array
  storeTask.push({id: currentId, name: task, urgency: taskUrgency, isCompleted, taskCreatedAt});
  console.log(`task added:  ${storeTask.length}`)
  saveToJson(); // Auto-save after adding
@@ -25,6 +28,7 @@ for (const task of storeTask) {
 }
 
 const removeTask = (id: number) => {
+  // finds given task id index
       const index = storeTask.findIndex(
     (task) => task.id === id
   );
