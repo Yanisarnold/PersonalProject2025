@@ -1,81 +1,66 @@
-// add, remove, list, modify,savetoJson (task)
-
 import * as fs from "fs";
+import { Command } from "commander";
+import { Task, UrgencyOfTask, urgencyOfTask } from "./global"
 
-let nextId = 1; // Increment counter for unique IDs (no collisions)
 const isCompleted = false;
-// type of task the array can store
-type Task = {
- id: number,
- name:string, 
- urgency: UrgencyOfTask,
- isCompleted: boolean,
- taskCreatedAt: string
-}
-
-export type UrgencyOfTask =
-  typeof urgencyOfTask[keyof typeof urgencyOfTask];
-export const  urgencyOfTask = {
-
-    Low :"Low",
-    Medium : "Medium",
-    Urgent : "Urgent"
-} as const;
-
+let nextId = 1; // Increment counter for unique IDs (no collisions)
 const storeTask: Task[] = [];
 
-const addTask = (task : string,  taskUrgency: UrgencyOfTask ) => {
-    if(typeof(task) !== "string"){
-        throw new Error("Invalid type added " + typeof(task) )
+// add task to the list 
+const addTask = (task: string, taskUrgency: UrgencyOfTask) => {
+  // check for types || empty string
+  if (typeof (task) !== "string" || task === " ") {
+      throw new Error("Invalid type added " + typeof (task) + task)
     }
  const taskCreatedAt = new Date().toISOString();
  const currentId = nextId++;
  storeTask.push({id: currentId, name: task, urgency: taskUrgency, isCompleted, taskCreatedAt});
  console.log(`task added:  ${storeTask.length}`)
- savetoJson(); // Auto-save after adding
+ saveToJson(); // Auto-save after adding
 
 for (const task of storeTask) {
   console.log(`current task added: ${task.id} ${task.name}, Urgency: (${task.urgency}), Completed?: ${task.isCompleted}, CreatedAt: ${task.taskCreatedAt}`);
 }
+  return true;
 }
 
-const removeTask = (uuid: number) => {
+const removeTask = (id: number) => {
       const index = storeTask.findIndex(
-    (task) => task.id === uuid
+    (task) => task.id === id
   );
     if (index !== -1) {
         storeTask.splice(index,1);
-        savetoJson(); // Auto-save after removing
+        saveToJson(); // Auto-save after removing
         return true; // Successfully removed
     }
     return false; // Task not found
 }
-function printAllTask() {
+function displayTask() {
   console.log("Current tasks:");
 
 //   iterate over an array with multiple input
   for (const [index, task] of storeTask.entries()) {
     console.log(`${index + 1}. Id: ${task.id} , Name: ${task.name}, Urgency: ${task.urgency}, Completed?: ${task.isCompleted}, CreatedAt: ${task.taskCreatedAt}`);
   }
-
   console.log(`Total tasks: ${storeTask.length}`);
 }
 
-function modifyTask(currTask:string, NewTask:string, isCompleted?:boolean,) : boolean {
-    // checking currTask index 
- const index = storeTask.findIndex(
-    (taskName) => taskName.name === currTask)
-//  checking if it exist then changing to new value + returning true
-if(index === -1) return false;
-storeTask[index].name = NewTask.toLowerCase();
+// Update task by ID
+function updateTaskById(id: number, newName: string): boolean {
+  const index = storeTask.findIndex((task) => task.id === id);
+  if (index === -1) return false;
+  storeTask[index].name = newName.toLowerCase();
+  saveToJson();
+  return true;
+}
 
- if (isCompleted !== undefined){
-    storeTask[index].isCompleted = isCompleted;
-    savetoJson(); // Auto-save after modifying
-    return true;
- }
-savetoJson(); // Auto-save after modifying
-return true;
+// Mark task as done by ID
+function markTaskDone(id: number): boolean {
+  const index = storeTask.findIndex((task) => task.id === id);
+  if (index === -1) return false;
+  storeTask[index].isCompleted = true;
+  saveToJson();
+  return true;
 }
 
 const outputFilePath: string = 'event_data.json';
@@ -100,27 +85,104 @@ function loadFromJson() {
   }
 }
 
-// SAVE tasks to file (called automatically after each change)
-function savetoJson() {
-  fs.writeFile(outputFilePath, JSON.stringify(storeTask, null, 4), 'utf8', (err) => {
-    if (err) {
-      console.error(`Error saving tasks: ${err}`);
-    } else {
-      console.log(`✓ Data saved to ${outputFilePath}`);
-    }
-  });
+// SAVE tasks to file (called automatically after each change) - SYNCHRONOUS to ensure saves complete
+function saveToJson() {
+  try {
+    fs.writeFileSync(outputFilePath, JSON.stringify(storeTask, null, 4), 'utf8');
+    console.log(`✓ Data saved to ${outputFilePath}`);
+  } catch (err) {
+    console.error(`Error saving tasks: ${err}`);
+  }
 }
 
-// testing
-loadFromJson(); // LOAD existing tasks from file on startup
+const program = new Command();
 
-addTask("food", urgencyOfTask.Medium)
-addTask("ronaldo", urgencyOfTask.Urgent)
-addTask("aldo", urgencyOfTask.Urgent)
-printAllTask()
-modifyTask("ronaldo", "r9", true)
-removeTask(1) // Use actual task ID instead of random uuid
-printAllTask()
+program
+  .name('todo')
+  .description('A simple CLI task manager')
+  .version('1.0.0');
+
+// Load tasks on startup
+loadFromJson();
+
+// ADD command
+program
+  .command('add <name> <urgency>')
+  .description('Add a new task')
+  .action((name: string, urgency: string) => {
+    try {
+      if (!Object.values(urgencyOfTask).includes(urgency as UrgencyOfTask)) {
+        console.error(`❌ Invalid urgency. Use: Low, Medium, or Urgent`);
+        return;
+      }
+      addTask(name, urgency as UrgencyOfTask);
+      console.log(`✅ Task added successfully!`);
+    } catch (error) {
+      console.error(`❌ Error: ${error}`);
+    }
+  });
+
+// LIST command
+program
+  .command('list')
+  .description('Show all tasks')
+  .action(() => {
+    if (storeTask.length === 0) {
+      console.log('📭 No tasks yet!');
+      return;
+    }
+    console.log('\n📋 Your Tasks:');
+    storeTask.forEach((task) => {
+      const status = task.isCompleted ? '✓' : '○';
+      console.log(`  ${status} [${task.id}] ${task.name} (${task.urgency})`);
+    });
+    console.log(`\nTotal: ${storeTask.length}\n`);
+  });
+
+// DONE command
+program
+  .command('done <id>')
+  .description('Mark a task as done')
+  .action((id: string) => {
+    const taskId = parseInt(id);
+    if (markTaskDone(taskId)) {
+      console.log(`✅ Task ${taskId} marked as done!`);
+    } else {
+      console.error(`❌ Task ${taskId} not found`);
+    }
+  });
+
+// REMOVE command
+program
+  .command('remove <id>')
+  .description('Delete a task')
+  .action((id: string) => {
+    const taskId = parseInt(id);
+    if (removeTask(taskId)) {
+      console.log(`✅ Task ${taskId} removed!`);
+    } else {
+      console.error(`❌ Task ${taskId} not found`);
+    }
+  });
+
+// UPDATE command
+program
+  .command('update <id> <name>')
+  .description('Change task name')
+  .action((id: string, name: string) => {
+    const taskId = parseInt(id);
+    if (updateTaskById(taskId, name)) {
+      console.log(`✅ Task ${taskId} updated!`);
+    } else {
+      console.error(`❌ Task ${taskId} not found`);
+    }
+  });
+
+// HELP command (built-in)
+program.addHelpCommand('help', 'Show help');
+
+program.parse(process.argv); // Use actual task ID instead of random uuid
+displayTask()
 
 
 
