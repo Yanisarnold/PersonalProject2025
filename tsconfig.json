@@ -8,6 +8,11 @@
     "strictFunctionTypes": true,
     "sourceMap": true
   },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
   "exclude": [
     "node_modules",
     "**/node_modules/*"

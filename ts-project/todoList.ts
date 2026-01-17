@@ -2,11 +2,8 @@
 
 import * as fs from "fs";
 
-const uuid = Math.floor(Math.random() * 1000);
+let nextId = 1; // Increment counter for unique IDs (no collisions)
 const isCompleted = false;
-const taskCreatedAt = new Date().toISOString();
-const expiryDate = new Date();
-console.log(uuid);
 // type of task the array can store
 type Task = {
  id: number,
@@ -31,7 +28,9 @@ const addTask = (task : string,  taskUrgency: UrgencyOfTask ) => {
     if(typeof(task) !== "string"){
         throw new Error("Invalid type added " + typeof(task) )
     }
- storeTask.push({id: uuid,name: task,urgency: taskUrgency, isCompleted, taskCreatedAt});
+ const taskCreatedAt = new Date().toISOString();
+ const currentId = nextId++;
+ storeTask.push({id: currentId, name: task, urgency: taskUrgency, isCompleted, taskCreatedAt});
  console.log(`task added:  ${storeTask.length}`)
 
 for (const task of storeTask) {
@@ -85,9 +84,10 @@ fs.writeFile(outputFilePath, JSON.stringify(storeTask, null, 4), 'utf8', () => {
 // testing
 addTask("food", urgencyOfTask.Medium)
 addTask("ronaldo", urgencyOfTask.Urgent)
+addTask("aldo", urgencyOfTask.Urgent)
 printAllTask()
 modifyTask("ronaldo", "r9", true)
-removeTask(uuid)
+removeTask(1) // Use actual task ID instead of random uuid
 printAllTask()
 savetoJson()
 
