@@ -5,7 +5,7 @@ import * as fs from "fs";
 const uuid = Math.floor(Math.random() * 1000);
 const isCompleted = false;
 const taskCreatedAt = new Date().toISOString();
-const expiryDate = "";
+const expiryDate = new Date();
 console.log(uuid);
 // type of task the array can store
 type Task = {
@@ -14,7 +14,6 @@ type Task = {
  urgency: UrgencyOfTask,
  isCompleted: boolean,
  taskCreatedAt: string
-
 }
 
 export type UrgencyOfTask =
@@ -28,7 +27,6 @@ export const  urgencyOfTask = {
 
 const storeTask: Task[] = [];
 
-
 const addTask = (task : string,  taskUrgency: UrgencyOfTask ) => {
     if(typeof(task) !== "string"){
         throw new Error("Invalid type added " + typeof(task) )
@@ -40,7 +38,7 @@ for (const task of storeTask) {
   console.log(`current task added: ${task.id} ${task.name}, Urgency: (${task.urgency}), Completed?: ${task.isCompleted}, CreatedAt: ${task.taskCreatedAt}`);
 }
 }
-// const index = storeTask.findIndex(task => task.id === id);
+
 const removeTask = (uuid: number) => {
       const index = storeTask.findIndex(
     (task) => task.id === uuid
@@ -62,8 +60,7 @@ function printAllTask() {
   console.log(`Total tasks: ${storeTask.length}`);
 }
 
-
-function modifyTask(currTask:string, NewTask:string, isCompleted?:boolean) :  boolean {
+function modifyTask(currTask:string, NewTask:string, isCompleted?:boolean,) : boolean {
     // checking currTask index 
  const index = storeTask.findIndex(
     (taskName) => taskName.name === currTask)
@@ -78,12 +75,8 @@ storeTask[index].name = NewTask.toLowerCase();
 return false
 }
 
-
-
 function savetoJson() {
-
 const outputFilePath: string = 'event_data.json';
-
 fs.writeFile(outputFilePath, JSON.stringify(storeTask, null, 4), 'utf8', () => {
   console.log(`Data written to ${outputFilePath} as JSON.`);
 });
