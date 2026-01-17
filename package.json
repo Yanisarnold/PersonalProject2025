@@ -1,31 +1,5 @@
 {
-  "name": "personalproject2025",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "prepare": "husky",
-    "lint": "eslint . --ext .ts,.tsx --fix",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
-    "type-check": "tsc --noEmit",
-    "testpaywright": "playwright test",
-    "playwright:ui": "playwright test --ui",
-    "test": "cucumber-js Kaluza-Task/features/test.feature --require-module ts-node/register --require Kaluza-Task/features/step_definitions/**/*.ts"
-  },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "@cucumber/cucumber": "^11.3.0",
-    "@playwright/test": "^1.52.0",
-    "@types/node": "^22.15.29",
-    "@types/node-fetch": "^2.6.12",
-    "husky": "^9.1.7",
-    "prettier": "3.6.2",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
-  },
-  "dependencies": {
-    "bootstrap": "^5.3.7",
-    "node-fetch": "^3.3.2"
+    "@playwright/test": "^1.52.0"
   }
 }
