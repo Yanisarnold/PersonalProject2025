@@ -63,6 +63,10 @@ const birthCertificate = (firstName : string ,lastName: string) => {
 console.log(birthCertificate(firstName,lastName))
 // todo app 
 
-function identity(arg: number): number {
+function identity<T>(arg: T): T {
     return arg;
 }
+
+let output = identity<string>('Hello')
+
+// Decorators 
