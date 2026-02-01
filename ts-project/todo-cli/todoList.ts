@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import { Command } from "commander";
-import { Task, UrgencyOfTask, urgencyOfTask } from "./global"
+import { Task, UrgencyOfTask, urgencyOfTask } from "../global"
 
 const isCompleted = false;
 let nextId = 1; // Increment counter for unique IDs (no collisions)
