@@ -1,50 +1,52 @@
-import * as fs from "fs";
-import { Command } from "commander";
-import { Task, UrgencyOfTask, urgencyOfTask } from "../global"
+import * as fs from 'fs';
+import { Command } from 'commander';
+import { Task, UrgencyOfTask, urgencyOfTask } from '../global';
 
 const isCompleted = false;
 let nextId = 1; // Increment counter for unique IDs (no collisions)
 const storeTask: Task[] = [];
 
-// add task to the list 
+// add task to the list
 const addTask = (task: string, taskUrgency: UrgencyOfTask) => {
   // check for types || empty string
-  if (typeof (task) !== "string" || task === " ") {
-      throw new Error("Invalid type added " + typeof (task) + task)
+  if (typeof task !== 'string' || task === ' ') {
+    throw new Error('Invalid type added ' + typeof task + task);
   }
   // adds dates created at in string
   const taskCreatedAt = new Date().toISOString();
-  // increments id each time a tas is added 
+  // increments id each time a tas is added
   const currentId = nextId++;
   // pushes task to array
- storeTask.push({id: currentId, name: task, urgency: taskUrgency, isCompleted, taskCreatedAt});
- console.log(`task added:  ${storeTask.length}`)
- saveToJson(); // Auto-save after adding
+  storeTask.push({ id: currentId, name: task, urgency: taskUrgency, isCompleted, taskCreatedAt });
+  console.log(`task added:  ${storeTask.length}`);
+  saveToJson(); // Auto-save after adding
 
-for (const task of storeTask) {
-  console.log(`current task added: ${task.id} ${task.name}, Urgency: (${task.urgency}), Completed?: ${task.isCompleted}, CreatedAt: ${task.taskCreatedAt}`);
-}
+  for (const task of storeTask) {
+    console.log(
+      `current task added: ${task.id} ${task.name}, Urgency: (${task.urgency}), Completed?: ${task.isCompleted}, CreatedAt: ${task.taskCreatedAt}`
+    );
+  }
   return true;
-}
+};
 
 const removeTask = (id: number) => {
   // finds given task id index
-      const index = storeTask.findIndex(
-    (task) => task.id === id
-  );
-    if (index !== -1) {
-        storeTask.splice(index,1);
-        saveToJson(); // Auto-save after removing
-        return true; // Successfully removed
-    }
-    return false; // Task not found
-}
+  const index = storeTask.findIndex((task) => task.id === id);
+  if (index !== -1) {
+    storeTask.splice(index, 1);
+    saveToJson(); // Auto-save after removing
+    return true; // Successfully removed
+  }
+  return false; // Task not found
+};
 function displayTask() {
-  console.log("Current tasks:");
+  console.log('Current tasks:');
 
-//   iterate over an array with multiple input
+  //   iterate over an array with multiple input
   for (const [index, task] of storeTask.entries()) {
-    console.log(`${index + 1}. Id: ${task.id} , Name: ${task.name}, Urgency: ${task.urgency}, Completed?: ${task.isCompleted}, CreatedAt: ${task.taskCreatedAt}`);
+    console.log(
+      `${index + 1}. Id: ${task.id} , Name: ${task.name}, Urgency: ${task.urgency}, Completed?: ${task.isCompleted}, CreatedAt: ${task.taskCreatedAt}`
+    );
   }
   console.log(`Total tasks: ${storeTask.length}`);
 }
@@ -76,12 +78,12 @@ function loadFromJson() {
       const data = fs.readFileSync(outputFilePath, 'utf8');
       const loadedTasks: Task[] = JSON.parse(data);
       storeTask.push(...loadedTasks);
-      
+
       // Update nextId to avoid collisions
       if (loadedTasks.length > 0) {
-        nextId = Math.max(...loadedTasks.map(t => t.id)) + 1;
+        nextId = Math.max(...loadedTasks.map((t) => t.id)) + 1;
       }
-      
+
       console.log(`✓ Loaded ${loadedTasks.length} tasks from ${outputFilePath}`);
     }
   } catch (error) {
@@ -101,10 +103,7 @@ function saveToJson() {
 
 const program = new Command();
 
-program
-  .name('todo')
-  .description('A simple CLI task manager')
-  .version('1.0.0');
+program.name('todo').description('A simple CLI task manager').version('1.0.0');
 
 // Load tasks on startup
 loadFromJson();
@@ -186,8 +185,4 @@ program
 program.addHelpCommand('help', 'Show help');
 
 program.parse(process.argv); // Use actual task ID instead of random uuid
-displayTask()
-
-
-
-
+displayTask();
